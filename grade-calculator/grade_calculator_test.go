@@ -49,3 +49,54 @@ func TestGetGradeF(t *testing.T) {
 		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
 	}
 }
+
+
+func TestGetGradeC(t *testing.T) {
+	expected_value := "C"
+
+	gradeCalculator := NewGradeCalculator()
+	gradeCalculator.AddGrade("assignment", 75, Assignment)
+	gradeCalculator.AddGrade("exam", 75, Exam)
+	gradeCalculator.AddGrade("essay", 75, Essay)
+
+	actual_value := gradeCalculator.GetFinalGrade()
+
+	if expected_value != actual_value {
+		t.Errorf("Expected '%s'; got '%s'", expected_value, actual_value)
+	}
+}
+
+func TestGetGradeD(t *testing.T) {
+	expected_value := "D"
+
+	gradeCalculator := NewGradeCalculator()
+	gradeCalculator.AddGrade("assignment", 65, Assignment)
+	gradeCalculator.AddGrade("exam", 65, Exam)
+	gradeCalculator.AddGrade("essay", 65, Essay)
+
+	actual_value := gradeCalculator.GetFinalGrade()
+
+	if expected_value != actual_value {
+		t.Errorf("Expected '%s'; got '%s'", expected_value, actual_value)
+	}
+}
+
+func TestGradeTypeString(t *testing.T) {
+	expected_value := "assignment"
+	actual_value := Assignment.String()
+
+	if expected_value != actual_value {
+		t.Errorf("Expected '%s'; got '%s'", expected_value, actual_value)
+	}
+}
+
+func TestEmptyGrades(t *testing.T) {
+	grades := []Grade{}
+	expected_value := 0
+
+	actual_value := computeAverage(grades)
+
+	if expected_value != actual_value {
+		t.Errorf("Expected %d; got %d", expected_value, actual_value)
+	}
+}
